@@ -202,8 +202,12 @@ tbody tr.r3{background:rgba(184,115,51,0.04)}
 
 /* ── CHARTS ── */
 .chart-row{display:grid;grid-template-columns:1fr 320px;gap:16px;align-items:start}
-@media(max-width:800px){.chart-row{grid-template-columns:1fr}}
+@media(max-width:800px){
+  .chart-row{grid-template-columns:1fr}
+  .chart-card canvas{height:260px !important}
+}
 .chart-card{padding:22px}
+.chart-card canvas{display:block;width:100% !important}
 .chart-title{font-size:0.82rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
 
 /* ── PARTICIPANTS ── */
@@ -321,11 +325,11 @@ footer strong{color:var(--muted)}
   <div class="chart-row">
     <div class="glass chart-card reveal d1">
       <div class="chart-title">Puntaje por Cápsula — Top 8</div>
-      <canvas id="barChart" height="220"></canvas>
+      <canvas id="barChart" style="height:280px"></canvas>
     </div>
     <div class="glass chart-card reveal d3">
       <div class="chart-title">Asistencia por Cápsula</div>
-      <canvas id="donutChart" height="220"></canvas>
+      <canvas id="donutChart" style="height:280px"></canvas>
     </div>
   </div>
 </div>
@@ -475,13 +479,14 @@ new Chart(document.getElementById('barChart'),{
   },
   options:{
     responsive:true,
+    maintainAspectRatio:false,
     animation:{duration:1000,easing:'easeOutQuart'},
     plugins:{
       legend:{position:'bottom',labels:{color:'rgba(221,229,240,0.65)',font:{size:11},boxWidth:12,padding:10}},
       tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${c.raw.toLocaleString('es-AR')} pts`}}
     },
     scales:{
-      x:{grid:{color:'rgba(255,255,255,0.05)'},ticks:{color:'rgba(221,229,240,0.5)',font:{size:10}}},
+      x:{grid:{color:'rgba(255,255,255,0.05)'},ticks:{color:'rgba(221,229,240,0.5)',font:{size:10},maxRotation:45,minRotation:0}},
       y:{grid:{color:'rgba(255,255,255,0.05)'},ticks:{color:'rgba(221,229,240,0.5)',callback:v=>v.toLocaleString('es-AR')}}
     }
   }
@@ -508,6 +513,7 @@ new Chart(document.getElementById('donutChart'),{
   },
   options:{
     responsive:true,
+    maintainAspectRatio:false,
     cutout:'62%',
     animation:{duration:1200,animateRotate:true,easing:'easeOutQuart'},
     plugins:{
