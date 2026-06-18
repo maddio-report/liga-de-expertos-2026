@@ -25,15 +25,73 @@
   --dim:rgba(221,229,240,0.28);
   --danger:#f87171;
 }
-body{background:var(--bg);color:var(--txt);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--txt);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;z-index:0;
   background:radial-gradient(ellipse at 20% 30%,rgba(30,74,140,0.18) 0%,transparent 55%),
              radial-gradient(ellipse at 80% 70%,rgba(77,144,232,0.07) 0%,transparent 50%);
   pointer-events:none}
 .page{position:relative;z-index:1}
 
+/* ══════════════════════════════════════
+   ANIMACIONES
+══════════════════════════════════════ */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(28px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes fadeIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+@keyframes scaleUp{
+  from{opacity:0;transform:scale(0.88) translateY(20px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+@keyframes slideRight{
+  from{opacity:0;transform:translateX(-32px)}
+  to{opacity:1;transform:translateX(0)}
+}
+@keyframes slideLeft{
+  from{opacity:0;transform:translateX(32px)}
+  to{opacity:1;transform:translateX(0)}
+}
+@keyframes goldGlow{
+  0%,100%{box-shadow:0 0 50px rgba(200,149,42,0.07),inset 0 1px 0 rgba(200,149,42,0.15)}
+  50%{box-shadow:0 0 80px rgba(240,180,41,0.18),inset 0 1px 0 rgba(240,180,41,0.25)}
+}
+@keyframes shimmer{
+  0%{background-position:-200% center}
+  100%{background-position:200% center}
+}
+@keyframes countUp{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes barGrow{
+  from{width:0}
+}
+@keyframes dotPulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.15)}
+}
+
+/* Reveal base — invisible until observer fires */
+.reveal{opacity:0}
+.reveal.visible{animation:fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) forwards}
+.reveal-scale{opacity:0}
+.reveal-scale.visible{animation:scaleUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards}
+.reveal-left{opacity:0}
+.reveal-left.visible{animation:slideRight 0.65s cubic-bezier(0.22,1,0.36,1) forwards}
+.reveal-right{opacity:0}
+.reveal-right.visible{animation:slideLeft 0.65s cubic-bezier(0.22,1,0.36,1) forwards}
+
+/* Stagger delays */
+.d1{animation-delay:0.05s}.d2{animation-delay:0.12s}.d3{animation-delay:0.19s}
+.d4{animation-delay:0.26s}.d5{animation-delay:0.33s}.d6{animation-delay:0.40s}
+.d7{animation-delay:0.47s}.d8{animation-delay:0.54s}
+
 /* ── HEADER ── */
-.hdr{padding:52px 32px 44px;text-align:center;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.hdr{padding:56px 32px 48px;text-align:center;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
 .hdr::before{
   content:'RED ACMAFOR ARGENTINA   RED ACMAFOR ARGENTINA   RED ACMAFOR ARGENTINA   RED ACMAFOR ARGENTINA';
   position:absolute;top:50%;left:50%;
@@ -41,21 +99,28 @@ body::before{content:'';position:fixed;inset:0;z-index:0;
   white-space:pre;font-size:1.6rem;font-weight:900;letter-spacing:0.28em;
   color:rgba(255,255,255,0.022);line-height:3.2em;width:220%;
   pointer-events:none}
-.hdr-logo{display:flex;justify-content:center;align-items:center;gap:20px;margin-bottom:18px}
-.hdr-img{height:70px;width:auto;object-fit:contain;filter:drop-shadow(0 0 14px rgba(77,144,232,0.5))}
-.hdr-brand h1{font-size:2.6rem;font-weight:900;letter-spacing:0.06em;text-transform:uppercase;
+
+.hdr-logo{display:flex;justify-content:center;align-items:center;gap:22px;margin-bottom:20px;
+  animation:fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both}
+.hdr-img{height:96px;width:auto;object-fit:contain;
+  filter:drop-shadow(0 0 18px rgba(77,144,232,0.55)) drop-shadow(0 4px 12px rgba(0,0,0,0.4))}
+
+.hdr-brand h1{font-size:2.8rem;font-weight:900;letter-spacing:0.06em;text-transform:uppercase;
   background:linear-gradient(135deg,#fff 0%,#a8c8f0 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
 .hdr-brand p{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-top:6px}
-.hdr-sub{font-size:0.95rem;color:var(--muted);margin-bottom:26px}
-.chips{display:flex;justify-content:center;flex-wrap:wrap;gap:9px}
+
+.hdr-sub{font-size:0.95rem;color:var(--muted);margin-bottom:26px;
+  animation:fadeIn 1s 0.35s both}
+.chips{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;
+  animation:fadeUp 0.8s 0.5s cubic-bezier(0.22,1,0.36,1) both}
 .chip{background:var(--card);border:1px solid var(--card-b);border-radius:99px;padding:6px 16px;
   font-size:0.8rem;display:flex;align-items:center;gap:7px;backdrop-filter:blur(8px)}
 .chip strong{color:var(--gold-l);font-weight:700}
 
 /* ── LAYOUT ── */
-.wrap{max-width:1200px;margin:0 auto;padding:40px 22px 0}
-.sh{display:flex;align-items:center;gap:11px;margin-bottom:18px}
+.wrap{max-width:1200px;margin:0 auto;padding:44px 22px 0}
+.sh{display:flex;align-items:center;gap:11px;margin-bottom:20px}
 .sh-bar{width:3px;height:20px;background:var(--gold);border-radius:2px;flex-shrink:0}
 .sh-title{font-size:0.95rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase}
 .sh-meta{font-size:0.76rem;color:var(--muted);margin-left:auto}
@@ -63,10 +128,11 @@ body::before{content:'';position:fixed;inset:0;z-index:0;
 
 /* ── PODIUM ── */
 .podium{display:grid;grid-template-columns:1fr 1.08fr 1fr;gap:14px;align-items:end}
-.pod{border-radius:16px;padding:28px 20px;text-align:center;position:relative;transition:transform .25s;cursor:default}
-.pod:hover{transform:translateY(-5px)}
+.pod{border-radius:16px;padding:28px 20px;text-align:center;position:relative;transition:transform .3s cubic-bezier(0.22,1,0.36,1)}
+.pod:hover{transform:translateY(-8px)}
 .pod.p1{background:linear-gradient(155deg,rgba(200,149,42,0.14) 0%,rgba(30,74,140,0.07) 100%);
-  border:1px solid rgba(200,149,42,0.28);box-shadow:0 0 50px rgba(200,149,42,0.07),inset 0 1px 0 rgba(200,149,42,0.15)}
+  border:1px solid rgba(200,149,42,0.28);
+  animation:goldGlow 3.5s 1.2s ease-in-out infinite}
 .pod.p2{background:linear-gradient(155deg,rgba(143,163,188,0.09) 0%,rgba(30,74,140,0.05) 100%);
   border:1px solid rgba(143,163,188,0.18)}
 .pod.p3{background:linear-gradient(155deg,rgba(184,115,51,0.09) 0%,rgba(30,74,140,0.05) 100%);
@@ -77,8 +143,13 @@ body::before{content:'';position:fixed;inset:0;z-index:0;
 .pod.p2 .pod-team{color:var(--silver-l)}
 .pod.p3 .pod-team{color:var(--bronze)}
 .pod-emp{font-size:0.73rem;color:var(--muted);margin-top:5px}
-.pod-score{font-size:1.9rem;font-weight:900;letter-spacing:-1px;margin-top:14px;font-variant-numeric:tabular-nums}
-.pod.p1 .pod-score{color:var(--gold-l)}
+.pod-score{font-size:2rem;font-weight:900;letter-spacing:-1px;margin-top:14px;font-variant-numeric:tabular-nums}
+.pod.p1 .pod-score{
+  color:var(--gold-l);
+  background:linear-gradient(90deg,var(--gold) 0%,var(--gold-l) 40%,#fff8e0 60%,var(--gold-l) 80%,var(--gold) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:shimmer 3s 1.5s linear infinite}
 .pod.p2 .pod-score{color:var(--silver-l)}
 .pod.p3 .pod-score{color:var(--bronze)}
 .pod-tag{display:inline-block;margin-top:9px;font-size:0.71rem;color:var(--muted);
@@ -92,8 +163,8 @@ thead th{padding:11px 14px;font-size:0.7rem;font-weight:700;text-transform:upper
   color:var(--muted);border-bottom:1px solid var(--line);white-space:nowrap;background:rgba(255,255,255,0.02)}
 tbody td{padding:11px 14px;border-bottom:1px solid var(--line);font-size:0.86rem;vertical-align:middle}
 tbody tr:last-child td{border-bottom:none}
-tbody tr{transition:background .12s}
-tbody tr:hover{background:rgba(77,144,232,0.045)}
+tbody tr{transition:background .15s,transform .15s}
+tbody tr:hover{background:rgba(77,144,232,0.055)}
 tbody tr.r1 td{font-weight:700}
 tbody tr.r1{background:rgba(200,149,42,0.055)}
 tbody tr.r2{background:rgba(143,163,188,0.03)}
@@ -112,17 +183,35 @@ tbody tr.r3{background:rgba(184,115,51,0.04)}
 .bf.b{background:linear-gradient(90deg,var(--blue),var(--blue-l))}
 .ttot{font-weight:700;white-space:nowrap;font-size:0.88rem}
 
+/* bar animation when table visible */
+.tbl-outer.visible .bf{animation:barGrow 0.8s cubic-bezier(0.22,1,0.36,1) both}
+
+/* ver más / ver menos */
+.tbl-hidden{display:none}
+.tbl-hidden.expanded{display:table-row;animation:fadeUp 0.45s cubic-bezier(0.22,1,0.36,1) both}
+.ver-mas-wrap{text-align:center;margin-top:14px}
+.ver-mas{background:rgba(255,255,255,0.05);border:1px solid var(--card-b);color:var(--muted);
+  font-family:inherit;font-size:0.82rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;
+  padding:10px 28px;border-radius:99px;cursor:pointer;backdrop-filter:blur(8px);
+  transition:background .2s,border-color .2s,color .2s}
+.ver-mas:hover{background:rgba(77,144,232,0.1);border-color:rgba(77,144,232,0.3);color:var(--blue-l)}
+
 /* ── MAP ── */
-.map-wrap{display:grid;grid-template-columns:220px 1fr;gap:18px;align-items:start}
-@media(max-width:700px){.map-wrap{grid-template-columns:1fr}}
-.map-card{padding:20px;text-align:center}
-.map-card p{font-size:0.66rem;color:var(--dim);margin-top:8px}
+.map-wrap{display:grid;grid-template-columns:320px 1fr;gap:22px;align-items:start}
+@media(max-width:800px){.map-wrap{grid-template-columns:1fr}}
+.map-card{padding:22px;text-align:center}
+.map-card p{font-size:0.66rem;color:var(--dim);margin-top:10px}
 .map-img-wrap{position:relative;display:inline-block}
-.map-img-wrap img{display:block;width:176px;height:auto;
-  filter:brightness(0) invert(1);opacity:0.45}
+.map-img-wrap img{display:block;width:260px;height:auto;
+  filter:brightness(0) invert(1);opacity:0.45;
+  transition:opacity .4s}
+.map-img-wrap:hover img{opacity:0.6}
 .map-svg-overlay{position:absolute;top:0;left:0;width:100%;height:100%}
+.map-dot-group circle:last-of-type{animation:dotPulse 2.5s ease-in-out infinite}
 .geo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:11px}
-.geo-c{padding:13px 14px;border-radius:12px;background:var(--card);border:1px solid var(--card-b)}
+.geo-c{padding:13px 14px;border-radius:12px;background:var(--card);border:1px solid var(--card-b);
+  transition:border-color .2s,transform .2s}
+.geo-c:hover{border-color:rgba(77,144,232,0.3);transform:translateY(-2px)}
 .geo-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding-bottom:7px;border-bottom:1px solid var(--line)}
 .geo-prov{font-size:0.8rem;font-weight:700}
 .geo-badge{font-size:0.68rem;font-weight:700;background:rgba(77,144,232,0.14);color:var(--blue-l);padding:2px 7px;border-radius:99px}
@@ -140,7 +229,8 @@ tbody tr.r3{background:rgba(184,115,51,0.04)}
 
 /* ── PARTICIPANTS ── */
 .part-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:13px}
-.pc{padding:15px 16px;border-radius:14px}
+.pc{padding:15px 16px;border-radius:14px;transition:transform .25s cubic-bezier(0.22,1,0.36,1),border-color .2s}
+.pc:hover{transform:translateY(-4px);border-color:rgba(77,144,232,0.25) !important}
 .pc-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px;padding-bottom:9px;border-bottom:1px solid var(--line)}
 .pc-team{font-size:0.84rem;font-weight:700;text-transform:uppercase;letter-spacing:0.03em}
 .pc-emp{font-size:0.68rem;color:var(--muted);margin-top:2px}
@@ -151,13 +241,14 @@ tbody tr.r3{background:rgba(184,115,51,0.04)}
   border:1px solid rgba(77,144,232,0.22);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 
 footer{text-align:center;padding:38px 24px;border-top:1px solid var(--line);
-  font-size:0.76rem;color:var(--dim);margin-top:56px}
+  font-size:0.76rem;color:var(--dim);margin-top:60px}
 footer strong{color:var(--muted)}
 
 @media(max-width:600px){
   .podium{grid-template-columns:1fr}
-  .hdr{padding:32px 14px}
-  .hdr-brand h1{font-size:1.9rem}
+  .hdr{padding:36px 14px 32px}
+  .hdr-brand h1{font-size:2rem}
+  .hdr-img{height:72px}
 }
 </style>
 </head>
@@ -167,7 +258,6 @@ footer strong{color:var(--muted)}
 <!-- HEADER -->
 <header class="hdr">
   <div class="hdr-logo">
-    <!-- Reemplazar src con URL de WordPress Media cuando esté disponible -->
     <img class="hdr-img" src="https://lh3.googleusercontent.com/d/1Uv_xKkqmW-SajXcgSfmUlKs1he-juMts" alt="Liga de Expertos">
     <div class="hdr-brand">
       <h1>Liga de Expertos</h1>
@@ -184,29 +274,29 @@ footer strong{color:var(--muted)}
   </div>
 </header>
 
-<!-- PODIO — orden: 1° / 2° / 3° -->
+<!-- PODIO -->
 <div class="wrap">
-  <div class="sh"><div class="sh-bar"></div><div class="sh-title">Podio Final</div></div>
+  <div class="sh reveal"><div class="sh-bar"></div><div class="sh-title">Podio Final</div></div>
   <div class="podium">
-    <div class="pod p1">
+    <div class="pod p1 reveal-scale d1">
       <div class="pod-medal">🥇</div>
       <div class="pod-team">Franquisima</div>
       <div class="pod-emp">Ingeniería Franca · Bs As / AMBA</div>
-      <div class="pod-score">64.671</div>
+      <div class="pod-score" data-target="64671">0</div>
       <div class="pod-tag">Campeón 2026</div>
     </div>
-    <div class="pod p2">
+    <div class="pod p2 reveal-scale d2">
       <div class="pod-medal">🥈</div>
       <div class="pod-team">La Cuna de Messi</div>
       <div class="pod-emp">Ing. Rosemberg SA · Santa Fe</div>
-      <div class="pod-score">60.308</div>
+      <div class="pod-score" data-target="60308">0</div>
       <div class="pod-tag">2° lugar</div>
     </div>
-    <div class="pod p3">
+    <div class="pod p3 reveal-scale d3">
       <div class="pod-medal">🥉</div>
       <div class="pod-team">Castel</div>
       <div class="pod-emp">Castel · San Juan</div>
-      <div class="pod-score">58.150</div>
+      <div class="pod-score" data-target="58150">0</div>
       <div class="pod-tag">3° lugar</div>
     </div>
   </div>
@@ -214,29 +304,31 @@ footer strong{color:var(--muted)}
 
 <!-- TABLA COMPLETA -->
 <div class="wrap">
-  <div class="sh">
+  <div class="sh reveal">
     <div class="sh-bar"></div>
     <div class="sh-title">Tabla Completa de Resultados</div>
     <div class="sh-meta">30 equipos · 4 cápsulas</div>
   </div>
-  <div class="glass tbl-outer">
+  <div class="glass tbl-outer reveal">
     <table><thead><tr>
       <th>#</th><th>Equipo</th><th>Cáp. 1</th><th>Cáp. 2</th><th>Cáp. 3</th><th>Cáp. 4</th><th>Total</th>
     </tr></thead><tbody id="tbody"></tbody></table>
+  </div>
+  <div class="ver-mas-wrap reveal d2">
+    <button class="ver-mas" id="verMasBtn" onclick="toggleTable()">Ver todos los equipos ↓</button>
   </div>
 </div>
 
 <!-- DISTRIBUCIÓN GEOGRÁFICA -->
 <div class="wrap">
-  <div class="sh">
+  <div class="sh reveal">
     <div class="sh-bar"></div>
     <div class="sh-title">Distribución Geográfica</div>
     <div class="sh-meta">11 provincias</div>
   </div>
   <div class="map-wrap">
-    <div class="glass map-card">
+    <div class="glass map-card reveal-left">
       <div class="map-img-wrap" id="mapWrap">
-        <!-- Reemplazar src con URL de WordPress Media del SVG de provincias -->
         <img id="mapImg" src="https://lh3.googleusercontent.com/d/1LCbbP0jNG25S9i4NcqkAgpQIxD-bFOcC" alt="Mapa Argentina">
         <svg id="argMap" class="map-svg-overlay" viewBox="0 0 240 520" xmlns="http://www.w3.org/2000/svg">
           <g id="mapDots"></g>
@@ -248,15 +340,15 @@ footer strong{color:var(--muted)}
   </div>
 </div>
 
-<!-- GRÁFICOS: Puntaje por Cápsula + Asistencia -->
+<!-- GRÁFICOS -->
 <div class="wrap">
-  <div class="sh"><div class="sh-bar"></div><div class="sh-title">Análisis por Cápsula</div></div>
+  <div class="sh reveal"><div class="sh-bar"></div><div class="sh-title">Análisis por Cápsula</div></div>
   <div class="chart-row">
-    <div class="glass chart-card">
+    <div class="glass chart-card reveal d1">
       <div class="chart-title">Puntaje por Cápsula — Top 8</div>
       <canvas id="barChart" height="220"></canvas>
     </div>
-    <div class="glass chart-card">
+    <div class="glass chart-card reveal d3">
       <div class="chart-title">Asistencia por Cápsula</div>
       <canvas id="donutChart" height="220"></canvas>
     </div>
@@ -264,8 +356,8 @@ footer strong{color:var(--muted)}
 </div>
 
 <!-- PARTICIPANTES -->
-<div class="wrap" style="padding-bottom:50px">
-  <div class="sh">
+<div class="wrap" style="padding-bottom:54px">
+  <div class="sh reveal">
     <div class="sh-bar"></div>
     <div class="sh-title">Participantes</div>
     <div class="sh-meta" id="partMeta"></div>
@@ -273,7 +365,7 @@ footer strong{color:var(--muted)}
   <div class="part-grid" id="partGrid"></div>
 </div>
 
-<footer>
+<footer class="reveal">
   <strong>Liga de Expertos 2026</strong> · Programa de Capacitación Comercial · Red ACMAFOR Argentina<br>
   Resultados al cierre de la Cápsula 4 · 30 equipos · 24 empresas · 11 provincias
 </footer>
@@ -318,7 +410,48 @@ const maxT=sorted[0].total;
 const pal=['#f0b429','#4d90e8','#34d399','#f87171','#a78bfa','#fb923c','#22d3ee','#a3e635'];
 Chart.defaults.color='rgba(221,229,240,0.6)';
 
-// ── TABLE ──
+/* ── INTERSECTION OBSERVER (scroll reveal) ── */
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      // bar animation
+      if(e.target.classList.contains('tbl-outer'))
+        e.target.querySelectorAll('.bf').forEach((b,i)=>{b.style.animationDelay=(i*0.008)+'s'});
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+
+document.querySelectorAll('.reveal,.reveal-scale,.reveal-left,.reveal-right')
+  .forEach(el=>io.observe(el));
+
+/* ── COUNTER ANIMATION for podium scores ── */
+function animateCounter(el){
+  const target=parseInt(el.dataset.target);
+  const duration=1400;
+  const start=performance.now();
+  const ease=t=>t<.5?2*t*t:(4-2*t)*t-1;
+  function step(now){
+    const p=Math.min((now-start)/duration,1);
+    const val=Math.round(ease(p)*target);
+    el.textContent=val.toLocaleString('es-AR');
+    if(p<1)requestAnimationFrame(step);
+    else el.textContent=target.toLocaleString('es-AR');
+  }
+  requestAnimationFrame(step);
+}
+const scoreObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting && e.target.dataset.target){
+      animateCounter(e.target);
+      scoreObserver.unobserve(e.target);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('.pod-score[data-target]').forEach(el=>scoreObserver.observe(el));
+
+/* ── TABLE ── */
 const tbody=document.getElementById('tbody');
 sorted.forEach((t,i)=>{
   const rk=i+1;
@@ -330,7 +463,8 @@ sorted.forEach((t,i)=>{
   const c=v=>v===0?`<span class="zero">—</span>`:v.toLocaleString('es-AR');
   const bw=Math.round(t.total/maxT*78);
   const bc=rk===1?'g':'b';
-  tbody.innerHTML+=`<tr class="${rc}">
+  const hidden=i>=10?'tbl-hidden':'';
+  tbody.innerHTML+=`<tr class="${rc} ${hidden}">
     <td>${re}</td>
     <td><div class="tn">${t.equipo}</div><div class="te">${t.empresa}</div></td>
     <td>${c(t.c1)}</td><td>${c(t.c2)}</td><td>${c(t.c3)}</td><td>${c(t.c4)}</td>
@@ -338,7 +472,24 @@ sorted.forEach((t,i)=>{
   </tr>`;
 });
 
-// ── MAP DOTS ──
+let tableExpanded=false;
+function toggleTable(){
+  tableExpanded=!tableExpanded;
+  const hidden=tbody.querySelectorAll('.tbl-hidden');
+  const btn=document.getElementById('verMasBtn');
+  hidden.forEach((tr,i)=>{
+    if(tableExpanded){
+      tr.classList.add('expanded');
+      tr.style.animationDelay=(i*0.04)+'s';
+    } else {
+      tr.classList.remove('expanded');
+      tr.style.animationDelay='';
+    }
+  });
+  btn.textContent=tableExpanded?'Ver menos ↑':'Ver todos los equipos ↓';
+}
+
+/* ── MAP DOTS ── */
 const coords={
   "Bs As / AMBA":{x:200,y:172},"Santa Fe":{x:182,y:142},"Entre Ríos":{x:194,y:130},
   "Mendoza":{x:62,y:170},"San Juan":{x:66,y:150},"San Luis":{x:108,y:178},
@@ -348,7 +499,6 @@ const coords={
 const byProv={};
 teams.forEach(t=>{if(!byProv[t.prov])byProv[t.prov]=[];byProv[t.prov].push(t)});
 
-// Adjust SVG overlay to match image dimensions once loaded
 const mapImg=document.getElementById('mapImg');
 const mapSvg=document.getElementById('argMap');
 function syncOverlay(){
@@ -366,28 +516,33 @@ Object.entries(coords).forEach(([prov,pos])=>{
   const sum=pt.reduce((s,t)=>s+t.total,0);
   const col=sum>100000?'#f0b429':sum>40000?'#4d90e8':'rgba(77,144,232,0.6)';
   const r=5+n*2.2;
-  dots.innerHTML+=`
-    <circle cx="${pos.x}" cy="${pos.y}" r="${r+5}" fill="${col}" opacity="0.1"/>
-    <circle cx="${pos.x}" cy="${pos.y}" r="${r}" fill="${col}" opacity="0.32"/>
+  dots.innerHTML+=`<g class="map-dot-group">
+    <circle cx="${pos.x}" cy="${pos.y}" r="${r+8}" fill="${col}" opacity="0.06"/>
+    <circle cx="${pos.x}" cy="${pos.y}" r="${r+4}" fill="${col}" opacity="0.12"/>
+    <circle cx="${pos.x}" cy="${pos.y}" r="${r}" fill="${col}" opacity="0.35"/>
     <circle cx="${pos.x}" cy="${pos.y}" r="${r-3}" fill="${col}" opacity="0.9"/>
-    <text x="${pos.x}" y="${pos.y+3.5}" text-anchor="middle" fill="white" font-size="8.5" font-weight="800">${n}</text>`;
+    <text x="${pos.x}" y="${pos.y+3.5}" text-anchor="middle" fill="white" font-size="8.5" font-weight="800">${n}</text>
+  </g>`;
 });
 
-// ── GEO CARDS ──
+/* ── GEO CARDS ── */
 const geoGrid=document.getElementById('geoGrid');
 Object.entries(byProv).sort((a,b)=>b[1].reduce((s,t)=>s+t.total,0)-a[1].reduce((s,t)=>s+t.total,0))
-.forEach(([prov,pt])=>{
+.forEach(([prov,pt],idx)=>{
   const rows=[...pt].sort((a,b)=>b.total-a.total).map(t=>`
     <div class="geo-row">
       <span class="geo-rn">${t.equipo}</span>
       <span class="geo-rs ${t.total===0?'np':''}">${t.total===0?'No jugó':t.total.toLocaleString('es-AR')}</span>
     </div>`).join('');
-  geoGrid.innerHTML+=`<div class="geo-c">
-    <div class="geo-hd"><span class="geo-prov">${prov}</span><span class="geo-badge">${pt.length} equipo${pt.length>1?'s':''}</span></div>
-    ${rows}</div>`;
+  const card=document.createElement('div');
+  card.className='geo-c reveal';
+  card.style.animationDelay=(idx*0.06)+'s';
+  card.innerHTML=`<div class="geo-hd"><span class="geo-prov">${prov}</span><span class="geo-badge">${pt.length} equipo${pt.length>1?'s':''}</span></div>${rows}`;
+  geoGrid.appendChild(card);
+  io.observe(card);
 });
 
-// ── BAR CHART: Puntaje por Cápsula — Top 8 ──
+/* ── BAR CHART ── */
 const top8=sorted.slice(0,8);
 new Chart(document.getElementById('barChart'),{
   type:'bar',
@@ -402,6 +557,7 @@ new Chart(document.getElementById('barChart'),{
   },
   options:{
     responsive:true,
+    animation:{duration:1000,easing:'easeOutQuart'},
     plugins:{
       legend:{position:'bottom',labels:{color:'rgba(221,229,240,0.65)',font:{size:11},boxWidth:12,padding:10}},
       tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${c.raw.toLocaleString('es-AR')} pts`}}
@@ -413,7 +569,7 @@ new Chart(document.getElementById('barChart'),{
   }
 });
 
-// ── DONUT CHART: Asistencia por Cápsula ──
+/* ── DONUT CHART ── */
 const att=[
   teams.filter(t=>t.c1>0).length,
   teams.filter(t=>t.c2>0).length,
@@ -426,15 +582,16 @@ new Chart(document.getElementById('donutChart'),{
     labels:['Cápsula 1','Cápsula 2','Cápsula 3','Cápsula 4'],
     datasets:[{
       data:att,
-      backgroundColor:['rgba(240,180,41,0.8)','rgba(77,144,232,0.8)','rgba(52,211,153,0.8)','rgba(248,113,113,0.8)'],
+      backgroundColor:['rgba(240,180,41,0.85)','rgba(77,144,232,0.85)','rgba(52,211,153,0.85)','rgba(248,113,113,0.85)'],
       borderColor:'rgba(7,17,31,0.6)',
       borderWidth:3,
-      hoverOffset:8
+      hoverOffset:10
     }]
   },
   options:{
     responsive:true,
     cutout:'62%',
+    animation:{duration:1200,animateRotate:true,easing:'easeOutQuart'},
     plugins:{
       legend:{position:'bottom',labels:{color:'rgba(221,229,240,0.65)',font:{size:11},boxWidth:12,padding:10}},
       tooltip:{callbacks:{label:c=>`${c.label}: ${c.raw} equipos`}}
@@ -442,8 +599,8 @@ new Chart(document.getElementById('donutChart'),{
   }
 });
 
-// ── PARTICIPANTS ──
-const piSVG=`<svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="5" r="3" stroke="rgba(77,144,232,0.85)" stroke-width="1.6"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="rgba(77,144,232,0.85)" stroke-width="1.6" stroke-linecap="round"/></svg>`;
+/* ── PARTICIPANTS ── */
+const piSVG=`<svg width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="rgba(77,144,232,0.85)" stroke-width="1.6"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="rgba(77,144,232,0.85)" stroke-width="1.6" stroke-linecap="round"/></svg>`;
 const partGrid=document.getElementById('partGrid');
 let totalPx=0;
 sorted.forEach((t,i)=>{
@@ -455,11 +612,12 @@ sorted.forEach((t,i)=>{
   const persons=t.px.length?t.px.map(p=>`<div class="person"><span class="pi">${piSVG}</span>${p}</div>`).join('')
     :`<div class="person" style="color:var(--dim)"><span class="pi">${piSVG}</span><em>No especificado</em></div>`;
   totalPx+=t.px.length;
-  partGrid.innerHTML+=`<div class="glass pc">
-    <div class="pc-hd">
-      <div><div class="pc-team">${t.equipo}</div><div class="pc-emp">${t.empresa}</div></div>
-      <div class="pc-rk ${rkC}">${rkL}</div>
-    </div>${persons}</div>`;
+  const card=document.createElement('div');
+  card.className='glass pc reveal';
+  card.style.animationDelay=(i*0.04)+'s';
+  card.innerHTML=`<div class="pc-hd"><div><div class="pc-team">${t.equipo}</div><div class="pc-emp">${t.empresa}</div></div><div class="pc-rk ${rkC}">${rkL}</div></div>${persons}`;
+  partGrid.appendChild(card);
+  io.observe(card);
 });
 document.getElementById('partMeta').textContent=`${totalPx} personas · ${teams.length} equipos`;
 </script>
